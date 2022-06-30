@@ -1,0 +1,56 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+<div class='row'>
+    <div class='col-sm-4'>
+        <h4>Add New Student</h4>
+        <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class='btn btn-success' value="Add">
+</form>
+    </div>
+
+    <div class='col-sm-7 offset-1'>
+        <h4 class="text-center alert alert-info"> Show Student Details</h4>
+        {% if student %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                {% for i in student %}
+                
+                    <tr>
+                        <th scope="row">{{i.id}}</th>
+                        <td>{{i.name}}</td>
+                        <td>{{i.email}}</td>
+                        <td>{{i.password}}</td>
+                        <td>
+                            <a class="btn btn-warning" href=" {% url 'update' i.id %} " role="button">Edit</a>
+                            <form action=" {% url 'delete' i.id %} " method="post" class='d-inline'> {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            
+                            </form>
+                            {% comment %} <a  href=" {% url 'delete' i.id %} " role="button">Delete</a> {% endcomment %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        {% else %}
+            <h4 class="text-center alert alert-warning"> No records found</h4>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}

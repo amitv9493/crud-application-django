@@ -1,0 +1,12 @@
+{% extends 'student/base.html' %}
+
+{% block content %}
+<h4>Update Student Details</h4>
+<form action="" method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit" class="btn btn-dark">Update</button>
+
+{% comment %} <a href= '{% url 'add_new' %}' class="btn btn-warning"> Return Home</a> {% endcomment %}
+</form>
+{% endblock content %}
